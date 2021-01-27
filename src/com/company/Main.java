@@ -1,7 +1,11 @@
 package com.company;
 
+import com.company.objects.Building;
+import com.company.objects.Field;
+
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
@@ -9,7 +13,23 @@ public class Main {
     private static final List<Farm> farmCatalogue = new ArrayList<>();
 
     private static void generateFarms() {
-        //
+        int maxFields = 5;
+        int maxBuildings = 5;
+        int maxFieldSize = 20;
+        Random generator = new Random();
+        for (int i = 0; i < FARM_CATALOGUE_COUNT; i++) {
+            List<Field> fieldList = new ArrayList<>();
+            int noOfFields = Math.abs(generator.nextInt()) % maxFields + 1;
+            for (int f = 0; f < noOfFields; f++) {
+                int fieldSize = (int) (Math.floor(generator.nextDouble() * maxFieldSize) + 1);
+                fieldList.add(new Field(fieldSize));
+            }
+            List<Building> buildingList = new ArrayList<>();
+            int noOfBuildings = Math.abs(generator.nextInt()) % maxBuildings + 1;
+            for (int b = 0; b < noOfBuildings; b++) {
+                //
+            }
+        }
     }
 
     public static void main(String[] args) {
