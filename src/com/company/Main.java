@@ -1,7 +1,6 @@
 package com.company;
 
-import com.company.objects.Building;
-import com.company.objects.Field;
+import com.company.objects.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,9 +25,22 @@ public class Main {
             }
             List<Building> buildingList = new ArrayList<>();
             int noOfBuildings = Math.abs(generator.nextInt()) % maxBuildings + 1;
+            final int noOfBuildingTypes = 6;
             for (int b = 0; b < noOfBuildings; b++) {
-                //
+                int building_id = Math.abs(generator.nextInt()) % noOfBuildingTypes;
+                switch (building_id) {
+                    case 0 -> buildingList.add(new Barn());
+                    case 1 -> buildingList.add(new Chickencoop());
+                    case 2 -> buildingList.add(new Cowshed());
+                    case 3 -> buildingList.add(new Fold());
+                    case 4 -> buildingList.add(new Pigpen());
+                    case 5 -> buildingList.add(new Stable());
+                }
             }
+            farmCatalogue.add(new Farm(noOfFields, noOfBuildings, fieldList, buildingList));
+        }
+        for (int i = 0; i < FARM_CATALOGUE_COUNT; i++) {
+            System.out.println("\n[FARMA NR " + (i+1) + "]\n" + farmCatalogue.get(i));
         }
     }
 
@@ -37,14 +49,14 @@ public class Main {
         System.out.println("| SAMOOBRONA CHŁOPSKA |");
         System.out.println("|   symulator farmy   |");
         System.out.println("+---------------------+");
-        generateFarms();
+        System.out.println("\n\n");
         Market market = new Market();
         System.out.println("Rozpocznij niesamowitą przygodę - kup jedną z poniższych farm:");
+        generateFarms();
         Scanner sc = new Scanner(System.in);
         int farmChoice;
         do {
-            System.out.println("Którą farmę chcesz zakupić?");
-            System.out.println("Podaj liczbę od 1 do " + FARM_CATALOGUE_COUNT);
+            System.out.println("\nKtórą farmę chcesz zakupić? -- Podaj liczbę od 1 do " + FARM_CATALOGUE_COUNT + " (0 aby zakończyć): _");
             farmChoice = sc.nextInt();
             if (farmChoice == 0) return;
             else if (farmChoice < 0 || farmChoice > FARM_CATALOGUE_COUNT)

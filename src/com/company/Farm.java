@@ -2,6 +2,7 @@ package com.company;
 
 import com.company.objects.Building;
 import com.company.objects.Field;
+
 import java.util.List;
 
 public class Farm {
@@ -53,5 +54,14 @@ public class Farm {
         this.buildingList.remove(id);
         // Dodać kontrolę - nie można sprzedawać budynku ze zwierzętami lub towarem.
         return ReturnCode.SUCCESS;
+    }
+
+    @Override
+    public String toString() {
+        StringBuilder text = new StringBuilder("Liczba pól: " + noOfFields + "\n");
+        for (Field field : fieldList) text.append(field);
+        text.append("Liczba budynków: ").append(noOfBuildings).append("\n");
+        for (Building building : buildingList) text.append(building);
+        return text.toString();
     }
 }
