@@ -1,9 +1,9 @@
 package com.company.objects;
 
-import com.company.Tradeable;
 import com.company.goods.Crop;
+import com.company.goods.Product;
 
-public class Field implements Tradeable {
+public class Field {
     private int size;
     private Crop crop;
     private FieldStatus status;
@@ -13,18 +13,15 @@ public class Field implements Tradeable {
         this.status = FieldStatus.RAW;
     }
 
-    @Override
-    public void sell() {
-        //TODO: write sell method for FIELD
-    }
-
-    @Override
-    public void buy() {
-        //TODO: write buy method for FIELD
+    public int getSize() {
+        return size;
     }
 
     @Override
     public String toString() {
-        return "Pole o rozmiarze " + size + " ha, obsiane " + crop + "; status: " + status + "\n";
+        String crop_info = "";
+        if (crop != null)
+            crop_info = ", uprawa: " + Product.codeToName(crop.getProductName()) + "; status: " + status;
+        return "Pole o rozmiarze " + size + " ha" + crop_info + "\n";
     }
 }

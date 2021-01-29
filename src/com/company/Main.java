@@ -1,15 +1,16 @@
 package com.company;
 
 import com.company.objects.*;
-
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
 
 public class Main {
     private static final int FARM_CATALOGUE_COUNT = 5;
     private static final List<Farm> farmCatalogue = new ArrayList<>();
+    public static final Double STARTING_MONEY = 1000000.0;
+    public static final Double FIELD_PRICE = 10000.0;
+    public static final Double ANIMAL_BUILD_PRICE = 500.0;
+    public static final Double STORAGE_BUILD_PRICE = 50.0;
+    public static final String CURRENCY = " CBLN";
 
     private static void generateFarms() {
         int maxFields = 5;
@@ -27,14 +28,15 @@ public class Main {
             int noOfBuildings = Math.abs(generator.nextInt()) % maxBuildings + 1;
             final int noOfBuildingTypes = 6;
             for (int b = 0; b < noOfBuildings; b++) {
-                int building_id = Math.abs(generator.nextInt()) % noOfBuildingTypes;
-                switch (building_id) {
-                    case 0 -> buildingList.add(new Barn());
-                    case 1 -> buildingList.add(new Chickencoop());
-                    case 2 -> buildingList.add(new Cowshed());
-                    case 3 -> buildingList.add(new Fold());
-                    case 4 -> buildingList.add(new Pigpen());
-                    case 5 -> buildingList.add(new Stable());
+                int buildingId = Math.abs(generator.nextInt()) % noOfBuildingTypes;
+                int buildSize = (Math.abs(generator.nextInt()) % 100 + 1) * 10;
+                switch (buildingId) {
+                    case 0 -> buildingList.add(new Barn(buildSize * 10));
+                    case 1 -> buildingList.add(new Chickencoop(buildSize));
+                    case 2 -> buildingList.add(new Cowshed(buildSize));
+                    case 3 -> buildingList.add(new Fold(buildSize));
+                    case 4 -> buildingList.add(new Pigpen(buildSize));
+                    case 5 -> buildingList.add(new Stable(buildSize));
                 }
             }
             farmCatalogue.add(new Farm(noOfFields, noOfBuildings, fieldList, buildingList));
@@ -53,15 +55,28 @@ public class Main {
         Market market = new Market();
         System.out.println("Rozpocznij niesamowitą przygodę - kup jedną z poniższych farm:");
         generateFarms();
-        Scanner sc = new Scanner(System.in);
         int farmChoice;
         do {
             System.out.println("\nKtórą farmę chcesz zakupić? -- Podaj liczbę od 1 do " + FARM_CATALOGUE_COUNT + " (0 aby zakończyć): _");
-            farmChoice = sc.nextInt();
+            farmChoice = Main.inputHandler();
             if (farmChoice == 0) return;
             else if (farmChoice < 0 || farmChoice > FARM_CATALOGUE_COUNT)
                 System.out.println("[ BŁĄD ] Liczba spoza zakresu!");
-        } while (farmChoice < 0 || farmChoice > FARM_CATALOGUE_COUNT);
-        Player gamer = new Player(farmCatalogue.get(farmChoice), market);
+            else if (farmCatalogue.get(farmChoice-1).getTotalPrice() > STARTING_MONEY)
+                System.out.println("[ BŁĄD ] Cena farmy (" + farmCatalogue.get(farmChoice-1).getTotalPrice() + CURRENCY + ") jest wyższa od dostępnych środków na koncie (" + STARTING_MONEY + CURRENCY + ").");
+        } while (farmChoice < 0 || farmChoice > FARM_CATALOGUE_COUNT || farmCatalogue.get(farmChoice-1).getTotalPrice() > STARTING_MONEY);
+        Player gamer = new Player(farmCatalogue.get(farmChoice-1), market);
+        gamer.play();
+    }
+
+    public static int inputHandler() {
+        int result;
+        Scanner sc = new Scanner(System.in);
+        try {
+            result = sc.nextInt();
+        } catch (InputMismatchException ime) {
+            result = Integer.MIN_VALUE;
+        }
+        return result;
     }
 }

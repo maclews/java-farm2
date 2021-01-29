@@ -6,16 +6,20 @@ import com.company.objects.Field;
 import java.util.List;
 
 public class Farm {
+    private Double totalPrice;
     private int noOfFields;
     private int noOfBuildings;
-    private List<Field> fieldList;
-    private List<Building> buildingList;
+    private final List<Field> fieldList;
+    private final List<Building> buildingList;
 
     public Farm(int noOfFields, int noOfBuildings, List<Field> fieldList, List<Building> buildingList) {
         this.noOfFields = noOfFields;
         this.noOfBuildings = noOfBuildings;
         this.fieldList = fieldList;
         this.buildingList = buildingList;
+        this.totalPrice = 0.0;
+        for (Field field : fieldList) this.totalPrice += field.getSize() * Main.FIELD_PRICE;
+        for (Building building : buildingList) this.totalPrice += building.getPrice();
     }
 
     public int getNoOfFields() {
@@ -56,12 +60,17 @@ public class Farm {
         return ReturnCode.SUCCESS;
     }
 
+    public Double getTotalPrice() {
+        return totalPrice;
+    }
+
     @Override
     public String toString() {
-        StringBuilder text = new StringBuilder("Liczba pól: " + noOfFields + "\n");
-        for (Field field : fieldList) text.append(field);
+        StringBuilder text = new StringBuilder("Cena: " + totalPrice + Main.CURRENCY + "\n");
+        text.append("Liczba pól: ").append(noOfFields).append("\n");
+        for (Field field : fieldList) text.append("* ").append(field);
         text.append("Liczba budynków: ").append(noOfBuildings).append("\n");
-        for (Building building : buildingList) text.append(building);
+        for (Building building : buildingList) text.append("* ").append(building);
         return text.toString();
     }
 }

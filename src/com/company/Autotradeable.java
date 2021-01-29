@@ -1,6 +1,6 @@
 package com.company;
 
-public interface Tradeable {
+public interface Autotradeable {
     void sell();
     void buy();
 }
