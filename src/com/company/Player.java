@@ -21,6 +21,7 @@ public class Player {
             market.freeMarket();
             switch (actionMenu()) {
                 case 1 -> fieldManager(farm);
+                case 2 -> buildingManager(farm);
                 case 6 -> System.out.println("--- STAN FARMY ---\n" + farm);
                 case 0 -> { return; }
             }
@@ -47,6 +48,7 @@ public class Player {
         System.out.println("[ 0 ] ZAKOŃCZ");
         do {
             choice = Main.inputHandler();
+            if (choice < 0 || choice > 9) System.out.println("*** POZA ZAKRESEM *** [0-9]");
         } while (choice < 0 || choice > 9);
         return choice;
     }
@@ -99,22 +101,27 @@ public class Player {
         }
     }
 
-    private void buildingManager(Building building) {
-        double buildingPrice = (building.getClass().getSimpleName().equals("Barn")) ? Main.STORAGE_BUILD_PRICE : Main.ANIMAL_BUILD_PRICE;
-        System.out.println("[ 1 ] ZAKUP");
-        System.out.println("[ 2 ] SPRZEDAŻ");
+    private void buildingManager(Farm farm) {
+        System.out.println("[ 1 ] ZAKUP STODOŁY");
+        System.out.println("[ 2 ] ZAKUP KURNIKA");
+        System.out.println("[ 3 ] ZAKUP OBORY");
+        System.out.println("[ 4 ] ZAKUP OWCZARNI");
+        System.out.println("[ 5 ] ZAKUP CHLEWU");
+        System.out.println("[ 6 ] ZAKUP STAJNI");
+        System.out.println("[ 7 ] SPRZEDAŻ");
         int choice;
         do {
             choice = Main.inputHandler();
-        } while (choice < 1 || choice > 2);
-        if (choice % 2 == 1) {
-            System.out.println("Zakup ziemi - cena wynosi " + buildingPrice + Main.CURRENCY + " za hektar.");
+        } while (choice < 1 || choice > 7);
+        if (choice != 7) {
+            double buildingPrice = (choice == 1) ? Main.STORAGE_BUILD_PRICE : Main.ANIMAL_BUILD_PRICE;
+            System.out.println("Zakup budynku - cena wynosi " + buildingPrice + Main.CURRENCY + " za jednostkę pojemności.");
             System.out.println("Podaj ilość którą chcesz zakupić (dozwolone dodatnie liczby naturalne - 0 anuluje transakcję):");
             choice = 1;
             double bill = 0.0;
             do {
                 if (choice < 0) System.out.println("Ilość mniejsza od zera. Jeszcze raz:");
-                if (bill > account) System.out.println("Wartość zakupu (" + bill + Main.CURRENCY + ") przekracza stan konta (" + account + Main.CURRENCY + "). Zmniejsz rozmiar pola:");
+                if (bill > account) System.out.println("Wartość zakupu (" + bill + Main.CURRENCY + ") przekracza stan konta (" + account + Main.CURRENCY + "). Zmniejsz pojemność:");
                 choice = Main.inputHandler();
                 if (choice == 0) {
                     System.out.println("Transakcja anulowana.");
@@ -125,13 +132,14 @@ public class Player {
             if (choice > 0) {
                 account -= bill;
                 farm.addField(new Field(choice));
-                System.out.println("Pole o rozmiarze " + choice + " ha zostało przypisane do Farmy.");
+                System.out.println("Budynek o pojemności " + choice + " został przypisany do Farmy.");
                 System.out.println("Z konta została pobrana kwota " + bill + Main.CURRENCY + ". Stan konta po transakcji: " + account + Main.CURRENCY);
             }
         } else {
             System.out.println("Sprzedaż budynków - dostępne do sprzedaży:");
-            for (int i = 0; i < farm.getNoOfFields(); i++) {
-                System.out.println("[" + (i+1) + "] " + farm.getField(i) + "; kwota sprzedaży: " + (farm.getField(i).getSize() * buildingPrice) + Main.CURRENCY);
+            for (int i = 0; i < farm.getNoOfBuildings(); i++) {
+                double buildingPrice = (farm.getBuilding(i).getClass().getSimpleName().equals("Barn")) ? Main.STORAGE_BUILD_PRICE : Main.ANIMAL_BUILD_PRICE;
+                System.out.println("[" + (i+1) + "] " + farm.getBuilding(i) + "; kwota sprzedaży: " + (farm.getBuilding(i).getSize() * buildingPrice) + Main.CURRENCY);
             }
             System.out.println("Zwierzęta lub towary przypisane do budynku zostaną automatycznie sprzedane z karą 10%.");
             System.out.println("Podaj numer budynku do sprzedania (lub 0, aby anulować transakcję):");
@@ -145,7 +153,7 @@ public class Player {
                 account += cash;
                 farm.removeBuilding(choice - 1);
                 System.out.println("Budynek z zawartością został sprzedany za " + cash + Main.CURRENCY + ", stan konta po transakcji: " + account + Main.CURRENCY);
-            } while (choice < 0 || choice > farm.getNoOfFields());
+            } while (choice < 0 || choice > farm.getNoOfBuildings());
         }
     }
 }
