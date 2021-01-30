@@ -2,6 +2,7 @@ package com.company.objects;
 
 import com.company.Autotradeable;
 import com.company.Main;
+import com.company.Market;
 import com.company.ReturnCode;
 import com.company.goods.MarketItem;
 
@@ -32,14 +33,12 @@ public class Barn extends Building implements Autotradeable {
     }
 
     @Override
-    public void sell() {
+    public Double autoSell(Market market) {
+        Double priceTag = getPrice();
         for (MarketItem marketItem : marketItems) {
-            marketItem.sell(marketItem.getAmount());
+            priceTag += marketItem.sell(marketItem.getAmount()) * market.getMarketItemPrice(marketItem.getProductName());
         }
+        return priceTag;
     }
 
-    @Override
-    public void buy() {
-        // Wstępnie przygotowane do automatycznego zaopatrzenia w zasoby
-    }
 }

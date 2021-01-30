@@ -14,6 +14,10 @@ public abstract class Building implements Autotradeable {
         this.size = size;
     }
 
+    public int getSize() {
+        return size;
+    }
+
     @Override
     public String toString() {
         String b = getClass().getSimpleName();

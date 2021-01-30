@@ -1,6 +1,5 @@
 package com.company;
 
 public interface Autotradeable {
-    void sell();
-    void buy();
+    Double autoSell(Market market);
 }

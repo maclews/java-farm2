@@ -8,6 +8,10 @@ public class MarketItem extends Product {
         this.amount = amount;
     }
 
+    public ProductNames getProductName() {
+        return productName;
+    }
+
     public Double getAmount() {
         return amount;
     }
