@@ -26,6 +26,6 @@ public abstract class Building implements Autotradeable {
             case "Stable" -> b = "Stajnia";
             default -> b = "(nieznany)";
         }
-        return "Budynek typu " + b + ", liczba miejsc: " + this.size + "\n";
+        return "Budynek typu " + b + ", liczba miejsc: " + this.size;
     }
 }

@@ -21,7 +21,7 @@ public class Field {
     public String toString() {
         String crop_info = "";
         if (crop != null)
-            crop_info = ", uprawa: " + Product.codeToName(crop.getProductName()) + "; status: " + status;
-        return "Pole o rozmiarze " + size + " ha" + crop_info + "\n";
+            crop_info = "; obsiane/obsadzone: " + Product.codeToName(crop.getProductName()) + "; status: " + status;
+        return "Pole o rozmiarze " + size + " ha" + crop_info;
     }
 }

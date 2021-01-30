@@ -76,7 +76,11 @@ public class Player {
                 System.out.println("Z konta została pobrana kwota " + bill + Main.CURRENCY + ". Stan konta po transakcji: " + account + Main.CURRENCY);
             }
         } else {
-            System.out.println("Sprzedaż ziemi");
+            System.out.println("Sprzedaż ziemi - dostępne do sprzedaży:");
+            for (int i = 0; i < farm.getNoOfFields(); i++) {
+                System.out.println("[" + (i+1) + "] " + farm.getField(i) + "; kwota sprzedaży: " + farm.getField(i).getSize());
+            }
+            System.out.println("Podaj numer farmy do sprzedania (lub 0, aby anulować transakcję)");
             //TODO("Continue...")
         }
     }

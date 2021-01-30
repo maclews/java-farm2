@@ -68,9 +68,9 @@ public class Farm {
     public String toString() {
         StringBuilder text = new StringBuilder("Cena: " + totalPrice + Main.CURRENCY + "\n");
         text.append("Liczba pól: ").append(noOfFields).append("\n");
-        for (Field field : fieldList) text.append("* ").append(field);
+        for (Field field : fieldList) text.append("* ").append(field).append("\n");
         text.append("Liczba budynków: ").append(noOfBuildings).append("\n");
-        for (Building building : buildingList) text.append("* ").append(building);
+        for (Building building : buildingList) text.append("* ").append(building).append("\n");
         return text.toString();
     }
 }
