@@ -2,6 +2,7 @@ package com.company.objects;
 
 import com.company.Main;
 import com.company.Autotradeable;
+import com.company.Market;
 
 public abstract class Building implements Autotradeable {
     protected int size;
@@ -17,6 +18,12 @@ public abstract class Building implements Autotradeable {
     public int getSize() {
         return size;
     }
+
+    public abstract int getAmount();
+
+    public abstract Double getBuySellPrice(int amount, Market market);
+
+    public abstract void changeAnimalAmount(int amount);
 
     @Override
     public String toString() {

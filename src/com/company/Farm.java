@@ -3,6 +3,7 @@ package com.company;
 import com.company.objects.Building;
 import com.company.objects.Field;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Farm {
@@ -62,6 +63,15 @@ public class Farm {
 
     public Double getTotalPrice() {
         return totalPrice;
+    }
+
+    public List<Building> listBuildings(String type) {
+        List<Building> list = new ArrayList<>();
+        for (Building building : this.buildingList) {
+            if (building.getClass().getSimpleName().equals(type))
+                list.add(building);
+        }
+        return list;
     }
 
     @Override

@@ -10,6 +10,20 @@ public class Pigpen extends Building{
         super(size);
     }
 
+    public Double getBuySellPrice(int amount, Market market) {
+        return amount * market.getPigPrice();
+    }
+
+    @Override
+    public void changeAnimalAmount(int amount) {
+        pigAmount += amount;
+    }
+
+    @Override
+    public int getAmount() {
+        return pigAmount;
+    }
+
     @Override
     public Double autoSell(Market market) {
         return ((pigAmount * (market.getPigPrice() * 0.9)) + (size * Main.ANIMAL_BUILD_PRICE));

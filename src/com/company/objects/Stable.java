@@ -9,6 +9,20 @@ public class Stable extends Building{
         super(size);
     }
 
+    public Double getBuySellPrice(int amount, Market market) {
+        return amount * market.getHorsePrice();
+    }
+
+    @Override
+    public void changeAnimalAmount(int amount) {
+        horseAmount += amount;
+    }
+
+    @Override
+    public int getAmount() {
+        return horseAmount;
+    }
+
     @Override
     public Double autoSell(Market market) {
         return ((horseAmount * (market.getHorsePrice() * 0.9)) + (size * Main.ANIMAL_BUILD_PRICE));

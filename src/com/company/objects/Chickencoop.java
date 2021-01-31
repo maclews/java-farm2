@@ -10,6 +10,20 @@ public class Chickencoop extends Building{
         super(size);
     }
 
+    public Double getBuySellPrice(int amount, Market market) {
+        return amount * market.getChickenPrice();
+    }
+
+    @Override
+    public void changeAnimalAmount(int amount) {
+        chickenAmount += amount;
+    }
+
+    @Override
+    public int getAmount() {
+        return chickenAmount;
+    }
+
     @Override
     public Double autoSell(Market market) {
         return ((chickenAmount * (market.getChickenPrice() * 0.9)) + (size * Main.ANIMAL_BUILD_PRICE));

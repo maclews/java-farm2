@@ -17,6 +17,20 @@ public class Barn extends Building implements Autotradeable {
         marketItems = new ArrayList<>();
     }
 
+    @Override
+    public int getAmount() {
+        return 0;   //TODO("Implement correct method")
+    }
+
+    @Override
+    public Double getBuySellPrice(int amount, Market market) {
+        return null;
+    }
+
+    @Override
+    public void changeAnimalAmount(int amount) {
+    }
+
     public ReturnCode withdraw(String name, Double amount) {
         //TODO("Cargo withdrawal method")
         return ReturnCode.SUCCESS;

@@ -10,6 +10,20 @@ public class Fold extends Building{
         super(size);
     }
 
+    public Double getBuySellPrice(int amount, Market market) {
+        return amount * market.getSheepPrice();
+    }
+
+    @Override
+    public void changeAnimalAmount(int amount) {
+        sheepAmount += amount;
+    }
+
+    @Override
+    public int getAmount() {
+        return sheepAmount;
+    }
+
     @Override
     public Double autoSell(Market market) {
         return ((sheepAmount * (market.getSheepPrice() * 0.9)) + (size * Main.ANIMAL_BUILD_PRICE));
