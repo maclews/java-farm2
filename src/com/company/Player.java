@@ -3,6 +3,7 @@ package com.company;
 import com.company.buildings.Building;
 import com.company.buildings.Field;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
@@ -33,11 +34,13 @@ public class Player {
             market.freeMarket();
             serviceWorker();
             switch (actionMenu()) {
-                case 1 -> fieldManager(farm);
-                case 2 -> buildingManager(farm);
-                case 3 -> animalManager(farm);
+                case 1 -> fieldManager();
+                case 2 -> buildingManager();
+                case 3 -> animalManager();
+                case 5 -> plantManager();
                 case 6 -> System.out.println("--- STAN FARMY ---\n" + farm);
                 case 0 -> looper = false;
+                default -> System.out.println("[ BŁĄD ] Funkcjonalność tymczasowo niedostępna.");
             }
         }
     }
@@ -73,7 +76,7 @@ public class Player {
         return choice;
     }
 
-    private void fieldManager(Farm farm) {
+    private void fieldManager() {
         System.out.println("[ 1 ] ZAKUP");
         System.out.println("[ 2 ] SPRZEDAŻ");
         int choice;
@@ -122,7 +125,7 @@ public class Player {
         }
     }
 
-    private void buildingManager(Farm farm) {
+    private void buildingManager() {
         System.out.println("[ 1 ] ZAKUP STODOŁY");
         System.out.println("[ 2 ] ZAKUP KURNIKA");
         System.out.println("[ 3 ] ZAKUP OBORY");
@@ -179,7 +182,7 @@ public class Player {
         }
     }
 
-    private void animalManager(Farm farm) {
+    private void animalManager() {
         System.out.println("[ 1 ] ZAKUP/SPRZEDAŻ KUR");
         System.out.println("[ 2 ] ZAKUP/SPRZEDAŻ KRÓW");
         System.out.println("[ 3 ] ZAKUP/SPRZEDAŻ OWIEC");
@@ -240,5 +243,33 @@ public class Player {
                 }
             }
         } while (looper);
+    }
+
+    private void plantManager() {
+        System.out.println("[ 1 ] SADZENIE");
+        System.out.println("[ 2 ] ZBIERANIE PLONÓW");
+        int choice;
+        do {
+            choice = Main.inputHandler();
+        } while (choice < 1 || choice > 2);
+        if (choice == 2) {
+            System.out.println("Wybierz jedno z poniższych pól gotowych do zebrania plonów:");
+            int counter = 0;
+            List<Field> harvestFieldList = new ArrayList<>();
+            for (int i = 0; i < farm.getNoOfFields(); i++) {
+                if (farm.getField(i).isReadyToHarvest()) {
+                    harvestFieldList.add(farm.getField(i));
+                    System.out.println("[ " + ++counter + " ] " + farm.getField(i).toString());
+                }
+            }
+            if (counter == 0) {
+                System.out.println("--- BRAK ---");
+                return;
+            }
+            do {
+                choice = Main.inputHandler();
+            } while (choice < 1 || choice > counter);
+            harvestFieldList.get(choice).harvest();
+        }
     }
 }

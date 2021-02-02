@@ -69,6 +69,12 @@ public class Field {
                     if (yield == 0) return;
                 }
             }
+            if (yield < (crop.getYield() * size)) {
+                crop = null;
+                readyToHarvest = false;
+            } else {
+                System.out.println("[ BŁĄD ] Nie udało się zebrać plonów - prawdopodobnie brak miejsca w magazynach.");
+            }
         }
     }
 
