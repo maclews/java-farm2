@@ -1,7 +1,7 @@
 package com.company;
 
-import com.company.objects.Building;
-import com.company.objects.Field;
+import com.company.buildings.Building;
+import com.company.buildings.Field;
 
 import java.util.List;
 
@@ -16,18 +16,35 @@ public class Player {
         this.market = market;
     }
 
+    public void accountDeposit(double amount) {
+        this.account += amount;
+    }
+
+    public boolean accountWithdraw(double amount) {
+        if (this.account >= amount) {
+            this.account -= amount;
+            return true;
+        } else return false;
+    }
+
     public void play() {
-        while (true) {
+        boolean looper = true;
+        while (looper) {
             market.freeMarket();
+            serviceWorker();
             switch (actionMenu()) {
                 case 1 -> fieldManager(farm);
                 case 2 -> buildingManager(farm);
                 case 3 -> animalManager(farm);
                 case 6 -> System.out.println("--- STAN FARMY ---\n" + farm);
-                case 0 -> {
-                    return;
-                }
+                case 0 -> looper = false;
             }
+        }
+    }
+
+    private void serviceWorker() {
+        for (int i = 0; i < farm.getNoOfFields(); i++) {
+            farm.getField(i).weeklyTasks();
         }
     }
 

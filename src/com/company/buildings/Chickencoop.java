@@ -1,4 +1,4 @@
-package com.company.objects;
+package com.company.buildings;
 
 import com.company.Main;
 import com.company.Market;

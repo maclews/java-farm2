@@ -1,6 +1,6 @@
 package com.company;
 
-import com.company.objects.*;
+import com.company.buildings.*;
 import java.util.*;
 
 public class Main {
@@ -11,6 +11,8 @@ public class Main {
     public static final Double ANIMAL_BUILD_PRICE = 500.0;
     public static final Double STORAGE_BUILD_PRICE = 50.0;
     public static final String CURRENCY = " CBLN";
+    public static final Double FIELD_PROTECTION_COST = 40.0;
+    public static Player gamer;
 
     private static void generateFarms() {
         int maxFields = 5;
@@ -65,7 +67,7 @@ public class Main {
             else if (farmCatalogue.get(farmChoice-1).getTotalPrice() > STARTING_MONEY)
                 System.out.println("[ BŁĄD ] Cena farmy (" + farmCatalogue.get(farmChoice-1).getTotalPrice() + CURRENCY + ") jest wyższa od dostępnych środków na koncie (" + STARTING_MONEY + CURRENCY + ").");
         } while (farmChoice < 0 || farmChoice > FARM_CATALOGUE_COUNT || farmCatalogue.get(farmChoice-1).getTotalPrice() > STARTING_MONEY);
-        Player gamer = new Player(farmCatalogue.get(farmChoice-1), market);
+        gamer = new Player(farmCatalogue.get(farmChoice-1), market);
         gamer.play();
     }
 

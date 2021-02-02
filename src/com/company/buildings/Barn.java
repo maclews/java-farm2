@@ -1,11 +1,10 @@
-package com.company.objects;
+package com.company.buildings;
 
 import com.company.Autotradeable;
 import com.company.Main;
 import com.company.Market;
 import com.company.ReturnCode;
 import com.company.goods.MarketItem;
-
 import java.util.ArrayList;
 import java.util.List;
 

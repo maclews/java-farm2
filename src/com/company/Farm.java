@@ -1,7 +1,7 @@
 package com.company;
 
-import com.company.objects.Building;
-import com.company.objects.Field;
+import com.company.buildings.Building;
+import com.company.buildings.Field;
 
 import java.util.ArrayList;
 import java.util.List;

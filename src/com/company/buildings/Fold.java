@@ -1,32 +1,32 @@
-package com.company.objects;
+package com.company.buildings;
 
 import com.company.Main;
 import com.company.Market;
 
-public class Cowshed extends Building{
-    private int cowAmount;
+public class Fold extends Building{
+    private int sheepAmount;
 
-    public Cowshed(int size) {
+    public Fold(int size) {
         super(size);
     }
 
     public Double getBuySellPrice(int amount, Market market) {
-        return amount * market.getCowPrice();
+        return amount * market.getSheepPrice();
     }
 
     @Override
     public void changeAnimalAmount(int amount) {
-        cowAmount += amount;
+        sheepAmount += amount;
     }
 
     @Override
     public int getAmount() {
-        return cowAmount;
+        return sheepAmount;
     }
 
     @Override
     public Double autoSell(Market market) {
-        return ((cowAmount * (market.getCowPrice() * 0.9)) + (size * Main.ANIMAL_BUILD_PRICE));
+        return ((sheepAmount * (market.getSheepPrice() * 0.9)) + (size * Main.ANIMAL_BUILD_PRICE));
     }
 
 }
