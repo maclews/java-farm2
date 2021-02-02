@@ -2,6 +2,9 @@ package com.company.buildings;
 
 import com.company.Main;
 import com.company.Market;
+import com.company.goods.MarketItem;
+
+import java.util.List;
 
 public class Chickencoop extends Building{
     private int chickenAmount;
@@ -17,6 +20,11 @@ public class Chickencoop extends Building{
     @Override
     public void changeAnimalAmount(int amount) {
         chickenAmount += amount;
+    }
+
+    @Override
+    public List<MarketItem> getMarketItems() {
+        return null;
     }
 
     @Override

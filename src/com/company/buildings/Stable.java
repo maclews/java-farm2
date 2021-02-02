@@ -2,6 +2,9 @@ package com.company.buildings;
 
 import com.company.Main;
 import com.company.Market;
+import com.company.goods.MarketItem;
+
+import java.util.List;
 
 public class Stable extends Building{
     private int horseAmount;
@@ -16,6 +19,11 @@ public class Stable extends Building{
     @Override
     public void changeAnimalAmount(int amount) {
         horseAmount += amount;
+    }
+
+    @Override
+    public List<MarketItem> getMarketItems() {
+        return null;
     }
 
     @Override

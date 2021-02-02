@@ -3,6 +3,9 @@ package com.company.buildings;
 import com.company.Main;
 import com.company.Autotradeable;
 import com.company.Market;
+import com.company.goods.MarketItem;
+
+import java.util.List;
 
 public abstract class Building implements Autotradeable {
     protected int size;
@@ -24,6 +27,8 @@ public abstract class Building implements Autotradeable {
     public abstract Double getBuySellPrice(int amount, Market market);
 
     public abstract void changeAnimalAmount(int amount);
+
+    public abstract List<MarketItem> getMarketItems();
 
     @Override
     public String toString() {

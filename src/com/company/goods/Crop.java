@@ -24,4 +24,8 @@ public class Crop extends Product{
     public ProductNames getProductName() {
         return productName;
     }
+
+    public Double getYield() {
+        return yield;
+    }
 }

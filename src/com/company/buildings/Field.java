@@ -2,7 +2,11 @@ package com.company.buildings;
 
 import com.company.Main;
 import com.company.goods.Crop;
+import com.company.goods.MarketItem;
 import com.company.goods.Product;
+import com.company.goods.ProductNames;
+
+import java.util.List;
 import java.util.Random;
 
 public class Field {
@@ -36,6 +40,36 @@ public class Field {
 
     public boolean isReadyToHarvest() {
         return readyToHarvest;
+    }
+
+    public void harvest() {
+        if (readyToHarvest) {
+            double yield = crop.getYield() * size;
+            List<Building> barns = Main.gamer.farm.listBuildings("Barn");
+            int freeSpace;
+            boolean existInBarn;
+            for (Building barn : barns) {
+                if (yield == 0) return;
+                freeSpace = barn.getSize() - barn.getAmount();
+                existInBarn = false;
+                if (freeSpace == 0) continue;
+                for (MarketItem mi : barn.getMarketItems()) {
+                    if (yield == 0) return;
+                    if (mi.getProductName() == crop.getProductName()) {
+                        mi.add((yield > freeSpace) ? freeSpace : yield);
+                        yield -= (yield > freeSpace) ? freeSpace : yield;
+                        if (yield == 0) return;
+                        existInBarn = true;
+                        break;
+                    }
+                }
+                if (!existInBarn) {
+                    barn.getMarketItems().add(new MarketItem(crop.getProductName(), (yield > freeSpace) ? freeSpace : yield));
+                    yield -= (yield > freeSpace) ? freeSpace : yield;
+                    if (yield == 0) return;
+                }
+            }
+        }
     }
 
     private boolean protect() {

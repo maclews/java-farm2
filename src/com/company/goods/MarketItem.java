@@ -15,4 +15,6 @@ public class MarketItem extends Product {
     public Double getAmount() {
         return amount;
     }
+
+    public void add(Double amount) { this.amount += amount; }
 }

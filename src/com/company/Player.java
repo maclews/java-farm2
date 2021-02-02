@@ -6,7 +6,7 @@ import com.company.buildings.Field;
 import java.util.List;
 
 public class Player {
-    private Farm farm;
+    public final Farm farm;
     private Double account;
     private Market market;
 

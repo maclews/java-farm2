@@ -5,11 +5,14 @@ import com.company.Main;
 import com.company.Market;
 import com.company.ReturnCode;
 import com.company.goods.MarketItem;
+import com.company.goods.ProductNames;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Barn extends Building implements Autotradeable {
     List<MarketItem> marketItems;
+    int noOfMarketItems;
 
     public Barn(int size) {
         super(size);
@@ -18,7 +21,19 @@ public class Barn extends Building implements Autotradeable {
 
     @Override
     public int getAmount() {
-        return 0;   //TODO("Implement correct method")
+        int total = 0;
+        for (MarketItem mi : marketItems) {
+            total += mi.getAmount();
+        }
+        return total;
+    }
+
+    public List<MarketItem> getMarketItems() {
+        return marketItems;
+    }
+
+    public void addMarketItem(ProductNames productName, Double amount) {
+        marketItems.add(new MarketItem(productName, amount));
     }
 
     @Override
